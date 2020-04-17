@@ -15,13 +15,24 @@
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ng-container *ngIf="pizza">
+    <ng-container>
       <h1>Liste des pizzas</h1>
       <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
 
-      <ul>
-        <li *ngFor="let item of pizza">{{item.nom}}</li>
-      </ul>
+      <ion-list *ngIf="pizza">
+        <ion-item *ngFor="let item of pizza">
+          <ion-avatar slot="start">
+            <img [src]="item.photo" />
+          </ion-avatar>
+          <ion-label>
+            <h2>{{item.nom}}</h2>
+            <h3>{{item.prix | currency:'EUR'}}</h3>
+          </ion-label>
+          <ion-button slot="end" (click)="addToCart(item)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
     </ng-container>
   </div>
 </ion-content>

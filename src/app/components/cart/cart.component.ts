@@ -12,7 +12,8 @@ export class CartComponent implements OnInit {
     public modalController: ModalController,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   closeModal() {
     this.modalController.dismiss();
