@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
 import { HomePage } from './home.page';
-import { PizzaService } from '../_services/pizza.service';
+import { PizzaService } from '../../../_services/pizza.service';
+import { CartModule } from '../../../components/cart/cart.module';
 
 @NgModule({
   imports: [
@@ -17,7 +17,8 @@ import { PizzaService } from '../_services/pizza.service';
         path: '',
         component: HomePage
       }
-    ])
+    ]),
+    CartModule,
   ],
   declarations: [HomePage],
   providers: [PizzaService],

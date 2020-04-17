@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Accueil
+    </ion-title>
+    <ion-button slot="end" fill="none" (click)="presentModal()">
+      <ion-icon name="cart" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ng-container *ngIf="pizza">
+      <h1>Liste des pizzas</h1>
+      <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
+
+      <ul>
+        <li *ngFor="let item of pizza">{{item.nom}}</li>
+      </ul>
+    </ng-container>
+  </div>
+</ion-content>
