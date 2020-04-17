@@ -8,3 +8,41 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ng-container>
+      <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
+
+      <p *ngIf="!cart || cart.length === 0" class="no-item">Votre panier est vide</p>
+
+      <ion-list *ngIf="cart">
+        <ion-item *ngFor="let item of cart">
+          <ion-avatar slot="start">
+            <img [src]="item.pizza.photo" />
+          </ion-avatar>
+          <ion-label>
+            <h2>{{item.pizza.nom}}</h2>
+            <h3>{{item.pizza.prix | currency:'EUR'}}</h3>
+          </ion-label>
+          <ion-label>
+            <ion-button (click)="removeQuantity(item)">
+              <ion-icon name="remove-outline"></ion-icon>
+            </ion-button>
+            {{item.quantity}}
+            <ion-button (click)="addQuantity(item)">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </ion-label>
+          <ion-button slot="end" (click)="removeFromCart(item.pizza.id)">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+  </div>
+</ion-content>

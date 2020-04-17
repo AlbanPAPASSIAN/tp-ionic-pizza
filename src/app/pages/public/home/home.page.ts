@@ -3,14 +3,14 @@ import { PizzaService } from '../../../_services/pizza.service';
 import PizzaDto from '../../../_models/pizza.dto';
 import { ModalController } from '@ionic/angular';
 import { CartComponent } from '../../../components/cart/cart.component';
-import { BasePageComponent } from '../../base/base-page.component';
+import { BaseComponent } from '../../../_base/base.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage extends BasePageComponent implements OnInit {
+export class HomePage extends BaseComponent implements OnInit {
 
   pizza: PizzaDto[];
 
@@ -39,10 +39,5 @@ export class HomePage extends BasePageComponent implements OnInit {
       swipeToClose: true,
     });
     return await modal.present();
-  }
-
-  async doRefresh(event: any) {
-    await this.load();
-    event.target.complete();
   }
 }
