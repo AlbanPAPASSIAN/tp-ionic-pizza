@@ -5,6 +5,7 @@
     </ion-title>
     <ion-button slot="end" fill="none" (click)="presentModal()">
       <ion-icon name="cart" slot="icon-only"></ion-icon>
+      <ion-badge color="primary" class="badge" *ngIf="cart && cart.length > 0">{{cart.length}}</ion-badge>
     </ion-button>
   </ion-toolbar>
 </ion-header>

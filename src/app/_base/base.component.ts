@@ -23,6 +23,7 @@ export abstract class BaseComponent {
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
+        this.load();
     }
 
     async doRefresh(event: any) {
