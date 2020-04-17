@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CartComponent } from './cart.component';
 import { RouterModule } from '@angular/router';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -15,6 +15,6 @@ import { CommonModule } from '@angular/common';
     declarations: [CartComponent],
     exports: [CartComponent],
     entryComponents: [CartComponent],
-    providers: [ModalController],
+    providers: [],
 })
 export class CartModule { }
