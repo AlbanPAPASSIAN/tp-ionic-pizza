@@ -9,33 +9,8 @@ export abstract class BaseComponent {
 
     abstract load();
 
-    addToCart(pizza: PizzaDto) {
-        let cart: CartItemDto[] = JSON.parse(localStorage.getItem('cart'));
-        if (!cart) {
-            cart = [];
-        }
-
-        const index = cart.findIndex(x => x.pizza.id === pizza.id);
-        if (index === -1) {
-            cart.push({ pizza, quantity: 1 });
-        } else {
-            cart[index].quantity++;
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        this.load();
-    }
-
     async doRefresh(event: any) {
         await this.load();
         event.target.complete();
-    }
-
-    getCart() {
-        return JSON.parse(localStorage.getItem('cart'));
-    }
-
-    saveCart(cart: CartItemDto[]) {
-        localStorage.setItem('cart', JSON.stringify(cart));
     }
 }

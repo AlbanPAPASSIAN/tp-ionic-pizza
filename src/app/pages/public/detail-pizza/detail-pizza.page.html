@@ -1,0 +1,17 @@
+<app-header *ngIf="pizza" [title]="pizza.nom" [showBackBtn]="true"></app-header>
+
+<ion-content *ngIf="pizza">
+  <img [src]="pizza.photo" alt="" />
+  <h1>{{pizza.nom}}</h1>
+  <h2>{{pizza.prix | currency:'EUR'}}</h2>
+
+  <ion-button (click)="cartService.addToCart(pizza)">
+    Ajouter au panier
+    <ion-icon name="add"></ion-icon>
+  </ion-button>
+
+  <h2>Liste des ingrédients</h2>
+  <ul>
+    <li *ngFor="let item of pizzaIngredients">{{item.nom}}</li>
+  </ul>
+</ion-content>

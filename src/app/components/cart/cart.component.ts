@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import PizzaDto from '../../_models/pizza.dto';
 import { BaseComponent } from '../../_base/base.component';
 import CartItemDto from '../../_models/cart-item.dto';
+import { CartService } from '../../_services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +15,7 @@ export class CartComponent extends BaseComponent implements OnInit {
 
   constructor(
     public modalController: ModalController,
+    private cartService: CartService,
   ) {
     super();
   }
@@ -28,7 +29,7 @@ export class CartComponent extends BaseComponent implements OnInit {
   }
 
   load() {
-    this.cart = this.getCart();
+    this.cart = this.cartService.getCart();
   }
 
   closeModal() {
@@ -37,13 +38,13 @@ export class CartComponent extends BaseComponent implements OnInit {
 
   removeFromCart(id: number) {
     this.cart.splice(this.cart.findIndex(x => x.pizza.id === id), 1);
-    this.saveCart(this.cart);
+    this.cartService.saveCart(this.cart);
   }
 
   addQuantity(cartItem: CartItemDto) {
     cartItem.quantity++;
 
-    this.saveCart(this.cart);
+    this.cartService.saveCart(this.cart);
   }
 
   removeQuantity(cartItem: CartItemDto) {
@@ -53,6 +54,6 @@ export class CartComponent extends BaseComponent implements OnInit {
       cartItem.quantity--;
     }
 
-    this.saveCart(this.cart);
+    this.cartService.saveCart(this.cart);
   }
 }

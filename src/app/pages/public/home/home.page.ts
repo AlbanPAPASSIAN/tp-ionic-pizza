@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { CartComponent } from '../../../components/cart/cart.component';
 import { BaseComponent } from '../../../_base/base.component';
 import CartItemDto from '../../../_models/cart-item.dto';
+import { CartService } from '../../../_services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +15,10 @@ import CartItemDto from '../../../_models/cart-item.dto';
 export class HomePage extends BaseComponent implements OnInit {
 
   pizza: PizzaDto[];
-  cart: CartItemDto[];
 
   constructor(
     private pizzaService: PizzaService,
-    public modalController: ModalController,
+    public cartService: CartService,
   ) {
     super();
   }
@@ -33,17 +33,5 @@ export class HomePage extends BaseComponent implements OnInit {
 
   async load() {
     this.pizza = await this.pizzaService.getAll().toPromise();
-    this.cart = this.getCart();
-  }
-
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: CartComponent,
-      swipeToClose: true,
-    });
-    modal.present();
-
-    await modal.onWillDismiss();
-    this.load();
   }
 }

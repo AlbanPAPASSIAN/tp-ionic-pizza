@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { DetailPizzaPage } from './detail-pizza.page';
 import { RouterModule } from '@angular/router';
-import { HomePage } from './home.page';
-import { PizzaService } from '../../../_services/pizza.service';
 import { HeaderModule } from '../../../components/header/header.module';
+import { IngredientsService } from '../../../_services/ingredients.service';
 import { CartService } from '../../../_services/cart.service';
 
 @NgModule({
@@ -16,12 +18,12 @@ import { CartService } from '../../../_services/cart.service';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: DetailPizzaPage,
       }
     ]),
     HeaderModule,
   ],
-  declarations: [HomePage],
-  providers: [PizzaService, CartService],
+  declarations: [DetailPizzaPage],
+  providers: [IngredientsService, CartService],
 })
-export class HomePageModule { }
+export class DetailPizzaPageModule { }
