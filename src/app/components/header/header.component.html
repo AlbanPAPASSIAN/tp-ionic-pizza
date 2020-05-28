@@ -1,14 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start" *ngIf="showBackBtn">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
       {{title}}
     </ion-title>
-    <ion-button slot="end" fill="none" (click)="presentModal()">
+    <ion-button slot="end" fill="none" (click)="presentModal()" *ngIf="!isAdmin">
       <ion-icon name="cart" slot="icon-only"></ion-icon>
       <ion-badge color="primary" class="badge" *ngIf="cart && cart.length > 0">{{cart.length}}</ion-badge>
+    </ion-button>
+    <ion-button slot="end" fill="none" *ngIf="isAdmin" [routerLink]="'/'">
+      <ion-icon name="home" slot="icon-only"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>

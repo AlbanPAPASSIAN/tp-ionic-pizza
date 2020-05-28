@@ -39,13 +39,25 @@ export class PizzaService {
     );
   }
 
-  create(pizza: PizzaDto) {
+  create(pizza: PizzaDto): Observable<PizzaDto> {
     return this.http.post<PizzaDto>(this.url, pizza).pipe(
       map(value => {
         if (value) {
           return value;
         } else {
-          throw new Error('Erreur lors de la création de la pizza "' + pizza.nom + '"');
+          throw new Error('Erreur lors de la création de la pizza "' + pizza.id + '"');
+        }
+      })
+    );
+  }
+
+  update(pizza: PizzaDto): Observable<PizzaDto> {
+    return this.http.put<PizzaDto>(this.url + '/' + pizza.id, pizza).pipe(
+      map(value => {
+        if (value) {
+          return value;
+        } else {
+          throw new Error('Erreur lors de la modification de la pizza "' + pizza.id + '"');
         }
       })
     );

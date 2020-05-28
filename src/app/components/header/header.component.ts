@@ -14,6 +14,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
 
   @Input() title: string;
   @Input() showBackBtn: boolean;
+  @Input() isAdmin: boolean;
   cart: CartItemDto[];
 
   constructor(

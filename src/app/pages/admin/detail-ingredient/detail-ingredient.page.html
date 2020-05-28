@@ -1,0 +1,16 @@
+<app-header [title]="title" [isAdmin]="true" [showBackBtn]="true"></app-header>
+
+<ion-content>
+  <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
+
+  <ng-container *ngIf="ingredient">
+    <ion-input type="text" placeholder="Nom" [(ngModel)]="ingredient.nom"></ion-input>
+
+    <ion-button (click)="save()">
+      <ion-icon name="save-outline"></ion-icon> Sauvegarder
+    </ion-button>
+    <ion-button (click)="delete()" *ngIf="ingredientId !== 'new'">
+      <ion-icon name="trash-outline"></ion-icon> Supprimer
+    </ion-button>
+  </ng-container>
+</ion-content>

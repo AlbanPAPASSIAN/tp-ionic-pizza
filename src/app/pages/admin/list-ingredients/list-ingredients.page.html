@@ -1,0 +1,28 @@
+<app-header title="Admin - List des ingrédients" [isAdmin]=true></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-button [routerLink]="'/admin/detail-ingredient/new'">
+      <ion-icon name="add"></ion-icon> Ajouter un nouvel ingrédient
+    </ion-button>
+
+    <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
+
+    <ion-item *ngFor="let item of ingredients">
+      <ion-label>
+        <h2>{{item.nom}}</h2>
+      </ion-label>
+      <ion-button slot="end" [routerLink]="'/admin/detail-ingredient/' + item.id">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" (click)="delete(item)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

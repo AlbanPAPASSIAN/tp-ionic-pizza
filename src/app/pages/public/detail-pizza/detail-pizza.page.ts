@@ -40,9 +40,11 @@ export class DetailPizzaPage extends BaseComponent implements OnInit {
 
     this.pizza = await this.pizzaService.getOne(this.pizzaId).toPromise();
     this.ingredients = await this.ingredientsService.getAll().toPromise();
-    this.pizzaIngredients = [];
-    for (const item of this.pizza.ingredients) {
-      this.pizzaIngredients.push(this.ingredients.find(x => x.id === item));
+    if (this.pizza.ingredients) {
+      this.pizzaIngredients = [];
+      for (const item of this.pizza.ingredients) {
+        this.pizzaIngredients.push(this.ingredients.find(x => x.id === item));
+      }
     }
 
     this.loading = false;

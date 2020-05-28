@@ -33,33 +33,45 @@ export class IngredientsService {
         if (value && value.length > 0) {
           return value;
         } else {
-          throw new Error('Aucune ingrédient trouvé');
+          throw new Error('Aucun ingrédient trouvé');
         }
       })
     );
   }
 
-  // create(pizza: PizzaDto) {
-  //   return this.http.post<PizzaDto>(this.url, pizza).pipe(
-  //     map(value => {
-  //       if (value) {
-  //         return value;
-  //       } else {
-  //         throw new Error('Erreur lors de la création de la pizza "' + pizza.nom + '"');
-  //       }
-  //     })
-  //   );
-  // }
+  create(ingredient: IngredientDto): Observable<IngredientDto> {
+    return this.http.post<IngredientDto>(this.url, ingredient).pipe(
+      map(value => {
+        if (value) {
+          return value;
+        } else {
+          throw new Error('Erreur lors de la création de l\'ingredient "' + ingredient.nom + '"');
+        }
+      })
+    );
+  }
 
-  // delete(id: number) {
-  //   return this.http.delete(this.url + '/' + id).pipe(
-  //     map(value => {
-  //       if (value) {
-  //         return value;
-  //       } else {
-  //         throw new Error('Erreur lors de la suppression de la pizza');
-  //       }
-  //     })
-  //   );
-  // }
+  update(ingredient: IngredientDto): Observable<IngredientDto> {
+    return this.http.put<IngredientDto>(this.url + '/' + ingredient.id, ingredient).pipe(
+      map(value => {
+        if (value) {
+          return value;
+        } else {
+          throw new Error('Erreur lors de la modification de l\'ingredient "' + ingredient.id + '"');
+        }
+      })
+    );
+  }
+
+  delete(id: number) {
+    return this.http.delete(this.url + '/' + id).pipe(
+      map(value => {
+        if (value) {
+          return value;
+        } else {
+          throw new Error('Erreur lors de la suppression de l\'ingredient "' + id + '"');
+        }
+      })
+    );
+  }
 }
