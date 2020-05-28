@@ -41,8 +41,8 @@ export class DetailPizzaPage extends BaseComponent implements OnInit {
       this.title = 'Ajout d\'une pizza';
       this.pizza = { nom: undefined, photo: undefined, prix: undefined, ingredients: [] };
     } else {
-      this.title = 'Modification - ' + this.pizza.nom;
       this.pizza = await this.pizzaService.getOne(this.pizzaId).toPromise();
+      this.title = 'Modification - ' + this.pizza.nom;
     }
 
     const ingredients = await this.ingredientsService.getAll().toPromise();

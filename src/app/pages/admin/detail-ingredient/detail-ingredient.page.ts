@@ -36,8 +36,8 @@ export class DetailIngredientPage extends BaseComponent implements OnInit {
       this.title = 'Ajout d\'un ingrédient';
       this.ingredient = { nom: undefined };
     } else {
-      this.title = 'Modification - ' + this.ingredient.nom;
       this.ingredient = await this.ingredientsService.getOne(this.ingredientId).toPromise();
+      this.title = 'Modification - ' + this.ingredient.nom;
     }
 
     this.loading = false;

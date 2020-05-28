@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './header.component';
 import { CartModule } from '../cart/cart.module';
 import { CartService } from '../../_services/cart.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,7 +13,7 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports: [IonicModule.forRoot(), CartModule],
+      imports: [IonicModule.forRoot(), CartModule, RouterTestingModule],
       providers: [CartService],
     }).compileComponents();
 
