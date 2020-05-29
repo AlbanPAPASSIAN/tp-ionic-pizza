@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DeleteConfirmComponent } from './delete-confirm.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DeleteConfirmComponent', () => {
   let component: DeleteConfirmComponent;
@@ -9,8 +10,8 @@ describe('DeleteConfirmComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteConfirmComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [DeleteConfirmComponent],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DeleteConfirmComponent);
