@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PizzaService } from '../../../_services/pizza.service';
 import PizzaDto from '../../../_models/pizza.dto';
 import { BaseComponent } from '../../../_base/base.component';
 import IngredientDto from '../../../_models/ingredient.dto';
 import { IngredientsService } from '../../../_services/ingredients.service';
+import { ToastController, ModalController } from '@ionic/angular';
+import { DeleteConfirmComponent } from '../../../components/delete-confirm/delete-confirm.component';
 
 @Component({
   selector: 'app-detail-pizza',
@@ -23,6 +25,9 @@ export class DetailPizzaPage extends BaseComponent implements OnInit {
     private route: ActivatedRoute,
     private pizzaService: PizzaService,
     private ingredientsService: IngredientsService,
+    private toastController: ToastController,
+    public modalController: ModalController,
+    public router: Router,
   ) {
     super();
   }
@@ -56,11 +61,19 @@ export class DetailPizzaPage extends BaseComponent implements OnInit {
   }
 
   async delete() {
-    this.loading = true;
+    const modal = await this.modalController.create({
+      component: DeleteConfirmComponent,
+      cssClass: 'cart-modal',
+      swipeToClose: true,
+      componentProps: {
+        item: this.pizza,
+        isIngredient: false,
+      }
+    });
+    modal.present();
 
-    await this.pizzaService.delete(this.pizza.id).toPromise();
-
-    this.loading = false;
+    await modal.onWillDismiss();
+    this.load();
   }
 
   async save() {
@@ -78,6 +91,14 @@ export class DetailPizzaPage extends BaseComponent implements OnInit {
     } else {
       await this.pizzaService.update(this.pizza).toPromise();
     }
+
+    const toast = await this.toastController.create({
+      message: 'Pizza sauvegardé',
+      duration: 2000
+    });
+    toast.present();
+
+    location.assign('/admin/list-pizza');
 
     this.loading = false;
   }

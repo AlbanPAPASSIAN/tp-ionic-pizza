@@ -3,6 +3,8 @@ import { BaseComponent } from '../../../_base/base.component';
 import { ActivatedRoute } from '@angular/router';
 import { IngredientsService } from '../../../_services/ingredients.service';
 import IngredientDto from '../../../_models/ingredient.dto';
+import { DeleteConfirmComponent } from '../../../components/delete-confirm/delete-confirm.component';
+import { ModalController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail-ingredient',
@@ -18,6 +20,8 @@ export class DetailIngredientPage extends BaseComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private ingredientsService: IngredientsService,
+    private toastController: ToastController,
+    public modalController: ModalController,
   ) {
     super();
   }
@@ -44,11 +48,19 @@ export class DetailIngredientPage extends BaseComponent implements OnInit {
   }
 
   async delete() {
-    this.loading = true;
+    const modal = await this.modalController.create({
+      component: DeleteConfirmComponent,
+      cssClass: 'cart-modal',
+      swipeToClose: true,
+      componentProps: {
+        item: this.ingredient,
+        isIngredient: true,
+      }
+    });
+    modal.present();
 
-    await this.ingredientsService.delete(this.ingredient.id).toPromise();
-
-    this.loading = false;
+    await modal.onWillDismiss();
+    this.load();
   }
 
   async save() {
@@ -63,6 +75,14 @@ export class DetailIngredientPage extends BaseComponent implements OnInit {
     } else {
       await this.ingredientsService.update(this.ingredient).toPromise();
     }
+
+    const toast = await this.toastController.create({
+      message: 'Ingrédient sauvegardé',
+      duration: 2000
+    });
+    toast.present();
+
+    location.assign('/admin/list-ingredients');
 
     this.loading = false;
   }

@@ -2,29 +2,29 @@
 
 <ion-content>
     <ion-list>
-        <ion-button [routerLink]="'/admin/detail-pizza/new'">
+        <ion-button [routerLink]="'/admin/detail-pizza/new'" class="btn-add">
             <ion-icon name="add"></ion-icon> Ajouter une nouvelle pizza
         </ion-button>
 
         <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
 
-        <ion-item *ngFor="let item of pizza">
-            <ion-avatar slot="start">
-                <img [src]="item.photo" />
-            </ion-avatar>
-            <ion-label>
-                <h2>{{item.nom}}</h2>
-            </ion-label>
-            <ion-label>
-                <h3>{{item.prix | currency:'EUR'}}</h3>
-            </ion-label>
-            <ion-button slot="end" [routerLink]="'/admin/detail-pizza/' + item.id">
-                <ion-icon name="create-outline"></ion-icon>
-            </ion-button>
-            <ion-button slot="end" (click)="delete(item)">
-                <ion-icon name="trash-outline"></ion-icon>
-            </ion-button>
-        </ion-item>
+        <ion-item-sliding *ngFor="let item of pizza">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img [src]="item.photo" />
+                </ion-avatar>
+                <ion-label>{{item.nom}}</ion-label>
+            </ion-item>
+
+            <ion-item-options>
+                <ion-item-option color="primary" [routerLink]="'/admin/detail-pizza/' + item.id">
+                    <ion-icon name="create-outline"></ion-icon>
+                </ion-item-option>
+                <ion-item-option color="danger" (click)="delete(item)">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">

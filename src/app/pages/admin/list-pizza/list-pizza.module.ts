@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ListPizzaPage } from './list-pizza.page';
 import { RouterModule } from '@angular/router';
 import { HeaderModule } from '../../../components/header/header.module';
+import { DeleteConfirmModule } from '../../../components/delete-confirm/delete-confirm.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { HeaderModule } from '../../../components/header/header.module';
       }
     ]),
     HeaderModule,
+    DeleteConfirmModule,
   ],
   declarations: [ListPizzaPage]
 })

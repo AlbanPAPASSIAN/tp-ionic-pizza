@@ -4,27 +4,44 @@
   <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
 
   <ng-container *ngIf="pizza">
-    <img [src]="pizza.photo" alt="" *ngIf="pizza.photo" />
-    <ion-input type="text" placeholder="Photo URL" [(ngModel)]="pizza.photo"></ion-input>
+    <ion-button class="back-btn">
+      <ion-back-button defaultHref="" text="Retour"></ion-back-button>
+    </ion-button>
 
-    <ion-input type="text" placeholder="Nom" [(ngModel)]="pizza.nom"></ion-input>
-    <ion-input type="number" placeholder="Prix" [(ngModel)]="pizza.prix"></ion-input>
+    <div class="img-container">
+      <img [src]="pizza.photo" alt="" *ngIf="pizza.photo" />
+    </div>
 
-    <ng-container *ngIf="ingredientsWrapper && ingredientsWrapper.length > 0">
+    <ion-list>
+      <ion-item>
+        <ion-label>Photo URL : </ion-label>
+        <ion-input type="text" placeholder="Photo URL" [(ngModel)]="pizza.photo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Nom : </ion-label>
+        <ion-input type="text" placeholder="Nom" [(ngModel)]="pizza.nom"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Prix : </ion-label>
+        <ion-input type="number" placeholder="Prix" [(ngModel)]="pizza.prix"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="container" *ngIf="ingredientsWrapper && ingredientsWrapper.length > 0">
       <h2>Liste des ingrédients</h2>
-      <ul>
-        <li *ngFor="let item of ingredientsWrapper">
-          <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>{{item.ingredient.nom}}
-        </li>
-      </ul>
-    </ng-container>
+      <div *ngFor="let item of ingredientsWrapper">
+        <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>
+        {{item.ingredient.nom}}
+      </div>
 
-
-    <ion-button (click)="save()">
-      <ion-icon name="save-outline"></ion-icon> Sauvegarder
-    </ion-button>
-    <ion-button (click)="delete()" *ngIf="pizzaId !== 'new'">
-      <ion-icon name="trash-outline"></ion-icon> Supprimer
-    </ion-button>
+      <div class="mt">
+        <ion-button (click)="save()">
+          <ion-icon name="save-outline"></ion-icon> Sauvegarder
+        </ion-button>
+        <ion-button (click)="delete()" *ngIf="pizzaId !== 'new'" color="danger">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
   </ng-container>
 </ion-content>

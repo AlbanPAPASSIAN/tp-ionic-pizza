@@ -56,4 +56,14 @@ export class CartComponent extends BaseComponent implements OnInit {
 
     this.cartService.saveCart(this.cart);
   }
+
+  getTotal() {
+    let total: number = 0;
+
+    for (const item of this.cart) {
+      total += item.pizza.prix * item.quantity;
+    }
+
+    return total;
+  }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { BaseComponent } from '../../../_base/base.component';
 import { PizzaService } from '../../../_services/pizza.service';
 import PizzaDto from '../../../_models/pizza.dto';
+import { DeleteConfirmComponent } from '../../../components/delete-confirm/delete-confirm.component';
 
 @Component({
   selector: 'app-list-pizza',
@@ -15,6 +16,7 @@ export class ListPizzaPage extends BaseComponent implements OnInit {
 
   constructor(
     private pizzaService: PizzaService,
+    public modalController: ModalController,
   ) {
     super();
   }
@@ -39,11 +41,18 @@ export class ListPizzaPage extends BaseComponent implements OnInit {
   }
 
   async delete(pizza: PizzaDto) {
-    this.loading = true;
+    const modal = await this.modalController.create({
+      component: DeleteConfirmComponent,
+      cssClass: 'cart-modal',
+      swipeToClose: true,
+      componentProps: {
+        item: pizza,
+        isIngredient: false,
+      }
+    });
+    modal.present();
 
-    await this.pizzaService.delete(pizza.id).toPromise();
+    await modal.onWillDismiss();
     this.load();
-
-    this.loading = false;
   }
 }

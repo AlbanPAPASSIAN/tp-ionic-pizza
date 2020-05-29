@@ -1,3 +1,23 @@
 img {
-    width: 200px;
+    width: 100%;
+}
+
+.container {
+    padding: 0px 20px;
+}
+
+.add-btn {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+}
+
+.back-btn {
+    position: fixed;
+    top: 70px;
+    left: 10px;
+
+    ion-back-button {
+        color: white;
+    }
 }

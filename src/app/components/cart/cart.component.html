@@ -42,6 +42,12 @@
             <ion-icon name="close-outline"></ion-icon>
           </ion-button>
         </ion-item>
+
+        <ion-item *ngIf="cart.length > 0">
+          <ion-label>
+            <h2>Total : {{ getTotal() | currency:'EUR'}}</h2>
+          </ion-label>
+        </ion-item>
       </ion-list>
     </ng-container>
   </div>

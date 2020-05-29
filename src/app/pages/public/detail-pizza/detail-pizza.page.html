@@ -4,22 +4,19 @@
   <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
 
   <img [src]="pizza.photo" alt="" />
-  <h1>{{pizza.nom}}</h1>
-  <h2>{{pizza.prix | currency:'EUR'}}</h2>
 
-  <ion-button (click)="cartService.addToCart(pizza)">
-    Ajouter au panier
+  <ion-button (click)="cartService.addToCart(pizza)" class="add-btn">
     <ion-icon name="add"></ion-icon>
   </ion-button>
 
-  <ng-container *ngIf="pizzaIngredients && pizzaIngredients.length > 0">
-    <h2>Liste des ingrédients</h2>
-    <ul>
-      <ng-container *ngFor="let item of pizzaIngredients">
-        <li *ngIf="item">
-          {{item.nom}}
-        </li>
-      </ng-container>
-    </ul>
-  </ng-container>
+  <ion-button class="back-btn">
+    <ion-back-button defaultHref="" text="Retour"></ion-back-button>
+  </ion-button>
+
+  <div class="container">
+    <h1>{{pizza.nom}}</h1>
+    <h4>{{pizza.prix | currency:'EUR'}}</h4>
+    <p>Ingrédient(s) : <ng-container *ngFor="let item of pizzaIngredients">{{item.nom}}, </ng-container>
+    </p>
+  </div>
 </ion-content>

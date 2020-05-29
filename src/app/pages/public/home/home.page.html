@@ -7,24 +7,26 @@
     </ion-refresher>
 
     <ng-container>
-      <a [routerLink]="'/admin/list-pizza'">ADMIN</a>
-      <h1>Liste des pizzas</h1>
       <ion-spinner class="spinner" name="crescent" [style.display]="loading ? '': 'none'"></ion-spinner>
 
-      <ion-list *ngIf="pizza">
-        <ion-item *ngFor="let item of pizza" [routerLink]="'/detail-pizza/' + item.id">
-          <ion-avatar slot="start">
-            <img [src]="item.photo" />
-          </ion-avatar>
-          <ion-label>
-            <h2>{{item.nom}}</h2>
-            <h3>{{item.prix | currency:'EUR'}}</h3>
-          </ion-label>
-          <ion-button slot="end" (click)="cartService.addToCart(item)">
-            <ion-icon name="add"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-list>
+      <ng-container *ngIf="pizza">
+        <ion-card *ngFor="let item of pizza">
+          <img [src]="item.photo" *ngIf="item.photo" [routerLink]="'/detail-pizza/' + item.id" />
+          <ion-card-header>
+            <ion-card-title>{{item.nom}}</ion-card-title>
+            <ion-card-subtitle>{{item.prix | currency:'EUR'}}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-button [routerLink]="'/detail-pizza/' + item.id">
+              Voir plus
+            </ion-button>
+            <ion-button (click)="cartService.addToCart(item)">
+              <ion-icon name="add-outline"></ion-icon> Ajouter au panier
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
     </ng-container>
   </div>
 </ion-content>

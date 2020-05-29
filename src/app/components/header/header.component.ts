@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, MenuController } from '@ionic/angular';
 import { BaseComponent } from '../../_base/base.component';
 import { CartComponent } from '../cart/cart.component';
 import CartItemDto from '../../_models/cart-item.dto';
@@ -19,6 +19,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
 
   constructor(
     public modalController: ModalController,
+    public menuController: MenuController,
     private cartService: CartService,
   ) {
     super();
@@ -33,11 +34,20 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: CartComponent,
+      cssClass: 'cart-modal',
       swipeToClose: true,
     });
     modal.present();
 
     await modal.onWillDismiss();
     this.load();
+  }
+
+  async openMenu() {
+    await this.menuController.open();
+  }
+
+  async closeMenu() {
+    await this.menuController.close();
   }
 }

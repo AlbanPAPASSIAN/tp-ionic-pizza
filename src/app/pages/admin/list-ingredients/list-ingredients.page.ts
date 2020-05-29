@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../_base/base.component';
 import IngredientDto from '../../../_models/ingredient.dto';
 import { IngredientsService } from '../../../_services/ingredients.service';
+import { DeleteConfirmComponent } from '../../../components/delete-confirm/delete-confirm.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list-ingredients',
@@ -14,6 +16,7 @@ export class ListIngredientsPage extends BaseComponent implements OnInit {
 
   constructor(
     private ingredientsService: IngredientsService,
+    public modalController: ModalController,
   ) {
     super();
   }
@@ -38,12 +41,19 @@ export class ListIngredientsPage extends BaseComponent implements OnInit {
   }
 
   async delete(ingredient: IngredientDto) {
-    this.loading = true;
+    const modal = await this.modalController.create({
+      component: DeleteConfirmComponent,
+      cssClass: 'cart-modal',
+      swipeToClose: true,
+      componentProps: {
+        item: ingredient,
+        isIngredient: true,
+      }
+    });
+    modal.present();
 
-    await this.ingredientsService.delete(ingredient.id).toPromise();
+    await modal.onWillDismiss();
     this.load();
-
-    this.loading = false;
   }
 
 }
